@@ -10,15 +10,17 @@ import javax.imageio.ImageIO
 fun main(args: Array<String>) {
     val size = 700
     val image = BufferedImage(size, size, BufferedImage.TYPE_4BYTE_ABGR)
-    val g = image.graphics
+    val g = image.createGraphics()
+//    g.scale(0.9,0.9)
     g.color = Color.black
     g.fillRect(0, 0, image.width, image.width)
 
-    val rnd = Random(7812384712398)
-//    val rnd = Random()
+//    val rnd = Random(7812384712398)
+    val rnd = Random()
+
     val world = World(size.toDouble(), size.toDouble())
-    val numPoints = 50
-    val distance = 50.0
+    val numPoints = 400
+    val distance = 25.0
 //    val points = genPoints(10, size, margin, rnd)
     println("Generating points...")
     val points = genPointsUniform(numPoints, distance, world, rnd)
@@ -39,8 +41,9 @@ fun main(args: Array<String>) {
     g.color = Color(0, 255, 0, 128)
 //    voronoi.nodes.forEach { g.drawPoint(it);}
     voronoi.nodes.forEach { g.fillPolygon(voronoi.getPolygon(it)) }
+//    g.color = Color.red
     voronoi.edges.forEach { g.drawLine(it) }
-    g.color = Color.red
+//    g.color = Color.red
 
 //    val node = voronoi.nodes.drop(2).first()
 //    val poly = voronoi.getPolygon(node)
@@ -51,7 +54,6 @@ fun main(args: Array<String>) {
 //    }
 
     ImageIO.write(image, "png", File("out.png"))
-
 }
 
 private fun drawDelauney(g: Graphics, delauney: DelauneyTriangulation, points: List<Vec>) {

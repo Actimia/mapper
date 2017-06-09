@@ -39,6 +39,13 @@ fun Graphics.fillPolygon(p: Polygon) {
     )
 }
 
+fun ccw(a: Vec, b: Vec, c: Vec): Double {
+    val (x1, y1) = a
+    val (x2, y2) = b
+    val (x3, y3) = c
+    return (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1)
+}
+
 fun Graphics.drawLine(l: Line) {
     drawLine(l.a, l.b)
 }

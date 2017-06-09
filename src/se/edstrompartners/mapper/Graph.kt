@@ -53,17 +53,17 @@ open class Graph<ND, ED> {
         return data
     }
 
-    fun getNodes(data: ED) : List<ND> {
+    fun getNodes(data: ED): List<ND> {
         val edge = _edges[data]!!
         return listOf(edge.start.data, edge.end.data)
     }
 
-    fun getEdges(data: ND) : List<ED> {
+    fun getEdges(data: ND): List<ED> {
         val node = _nodes[data]!!
         return node.edges.map { it.data }
     }
 
-    fun getNeighbors(data: ND) : List<ND> {
+    fun getNeighbors(data: ND): List<ND> {
 
         val node = _nodes[data]!!
         return node.neighbors.map { it.data }
@@ -111,8 +111,8 @@ open class Graph<ND, ED> {
                 return path.reversed()
             }
             _nodes[cur]!!.neighbors.map { it.data }.filter { it !in visited }.forEach {
-                stack.add(it);
-                visited.add(it);
+                stack.add(it)
+                visited.add(it)
                 cameFrom.put(it, cur)
             }
         } while (stack.isNotEmpty())

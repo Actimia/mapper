@@ -3,7 +3,9 @@ package se.edstrompartners.mapper
 import java.util.Comparator.comparingDouble
 
 
-class Vec(val x: Double, val y: Double) : Comparable<Vec> {
+class Vec(val x: Double, val y: Double) : Comparable<Vec>, Shape {
+
+
     operator fun plus(o: Vec) = Vec(x + o.x, y + o.y)
 
     operator fun minus(o: Vec) = Vec(x - o.x, y - o.y)
@@ -12,9 +14,9 @@ class Vec(val x: Double, val y: Double) : Comparable<Vec> {
 
     operator fun div(scale: Double) = Vec(x / scale, y / scale)
 
-    fun dot(o: Vec) : Double = x*o.x + y*o.y
+    fun dot(o: Vec): Double = x * o.x + y * o.y
 
-    fun angle(o: Vec) : Double {
+    fun angle(o: Vec): Double {
         return Math.acos(dot(o) / (len() * o.len()))
     }
 
@@ -35,6 +37,15 @@ class Vec(val x: Double, val y: Double) : Comparable<Vec> {
     fun dist(o: Vec) = (this - o).len()
     fun isWithin(o: Vec, dist: Double): Boolean {
         return (this - o).len2() < dist * dist
+    }
+
+    override val edges: List<Line>
+        get() = listOf()
+    override val corners: List<Vec>
+        get() = listOf(this)
+
+    override fun contains(point: Vec): Boolean {
+        return this == point
     }
 
     override fun equals(other: Any?): Boolean {

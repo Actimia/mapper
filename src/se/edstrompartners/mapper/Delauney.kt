@@ -75,7 +75,7 @@ class DelauneyTriangulation private constructor(val triangles: List<Triangle>) {
         fun create(points: List<Vec>, world: World): DelauneyTriangulation {
             val margin = 5.0
             val superTriangle = Triangle(
-                -Vec(margin,margin),
+                -Vec(margin, margin),
                 Vec(-margin, world.height * 2 + 2 * margin),
                 Vec(world.width * 2 + 2 * margin, -margin))
             val tris = mutableListOf(superTriangle)
@@ -89,7 +89,7 @@ class DelauneyTriangulation private constructor(val triangles: List<Triangle>) {
                     }
                 }
                 tris.removeAll(badTriangles)
-                polygon.mapTo(tris) { (a,b) -> Triangle(point, a, b) }
+                polygon.mapTo(tris) { (a, b) -> Triangle(point, a, b) }
             }
             val superVertices = superTriangle.vertices
             return DelauneyTriangulation(tris.filter { it.vertices.none { it in superVertices } })
