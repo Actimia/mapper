@@ -4,8 +4,6 @@ import java.util.Comparator.comparingDouble
 
 
 class Vec(val x: Double, val y: Double) : Comparable<Vec>, Shape {
-
-
     operator fun plus(o: Vec) = Vec(x + o.x, y + o.y)
 
     operator fun minus(o: Vec) = Vec(x - o.x, y - o.y)

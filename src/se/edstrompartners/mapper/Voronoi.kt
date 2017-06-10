@@ -4,8 +4,16 @@ import java.util.*
 
 class Polygon(val points: List<Vec>) {
 
-    val edges: List<Line> get() {
-        return listOf()
+    val edges: List<Line>
+
+    init {
+        val es = mutableListOf<Line>()
+        var prev = points[0]
+        for (point in points.drop(1)) {
+            es.add(Line(prev, point))
+            prev = point
+        }
+        edges = es.toList()
     }
 
     override fun equals(other: Any?): Boolean {
@@ -25,9 +33,8 @@ class VoronoiDiagram private constructor(val world: World) : Graph<Vec, Line>() 
         val closestCorner = world.bounds.corners.sortedBy { it.dist(node) }.first()
         val corner = nodes.sortedBy { it.dist(closestCorner) }.first()
 
-
-
         val lines = getEdges(node).map { it.clipTo(world.bounds) }.filterNotNull()
+        if (lines.isEmpty()) return Polygon(listOf())
         val (a, b) = lines.first()
 
         val poly = ArrayDeque<Vec>()

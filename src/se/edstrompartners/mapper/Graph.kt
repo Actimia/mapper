@@ -122,4 +122,18 @@ open class Graph<ND, ED> {
     private fun isAdjacent(a: ND, b: ND): ED? {
         return _nodes[a]?.edgeTo(_nodes[b])?.data
     }
+
+    fun <NND> mapNodes(mapper : (ND) -> NND) : Graph<NND, ED> {
+        val res = Graph<NND, ED>()
+        val mapping = hashMapOf<ND, NND>()
+        nodes.forEach { node ->
+            val mapped = mapper(node)
+            mapping.put(node, mapped)
+            res.addNode(mapped)
+        }
+
+        _edges.values.forEach { res.addEdge(mapping[it.start.data]!!, mapping[it.end.data]!!, it.data) }
+
+        return res
+    }
 }

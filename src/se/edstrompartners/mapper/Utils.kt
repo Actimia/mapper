@@ -53,3 +53,9 @@ fun Graphics.drawLine(l: Line) {
 fun Graphics.drawCircle(mid: Vec, radius: Double) {
     drawOval((mid.x - radius).toInt(), (mid.y - radius).toInt(), (radius * 2).toInt(), (radius * 2).toInt())
 }
+
+fun clamp(x: Double, min: Double = 0.0, max : Double = 1.0) : Double {
+    if (x <= min) return min
+    if (max <= x) return max
+    return x
+}

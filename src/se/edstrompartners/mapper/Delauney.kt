@@ -1,5 +1,8 @@
 package se.edstrompartners.mapper
 
+import java.awt.Color
+import java.awt.Graphics
+
 class DelauneyTriangulation private constructor(val triangles: List<Triangle>) {
 
     class Triangle(val x: Vec, val y: Vec, val z: Vec) {
@@ -92,7 +95,25 @@ class DelauneyTriangulation private constructor(val triangles: List<Triangle>) {
                 polygon.mapTo(tris) { (a, b) -> Triangle(point, a, b) }
             }
             val superVertices = superTriangle.vertices
-            return DelauneyTriangulation(tris.filter { it.vertices.none { it in superVertices } })
+            val withoutSuperTriangle = tris.filter { it.vertices.none { it in superVertices } }
+            return DelauneyTriangulation(withoutSuperTriangle)
+//            return DelauneyTriangulation(listOf())
         }
     }
+}
+
+
+private fun drawDelauney(g: Graphics, delauney: DelauneyTriangulation, points: List<Vec>) {
+    g.color = Color(255, 0, 0, 64)
+    delauney.triangles.forEach {
+        g.fillPolygon(
+            it.vertices.map { it.x.toInt() }.toIntArray(),
+            it.vertices.map { it.y.toInt() }.toIntArray(),
+            3
+        )
+        it.edges().forEach { g.drawLine(it) }
+    }
+
+    g.color = Color.red
+    points.forEach { g.drawPoint(it) }
 }
