@@ -1,6 +1,7 @@
 package se.edstrompartners.mapper
 
 import java.awt.Color
+import java.lang.Math.*
 
 
 data class HSV(
@@ -39,5 +40,22 @@ data class HSV(
         }
 
         return Color(scale(r), scale(g), scale(b), scale(a))
+    }
+}
+
+class Gradient(private val c1: HSV, private val c2 : HSV) {
+    fun get(f: Double) : HSV {
+        val c1h = Vec(sin(c1.h), cos(c1.h))
+        val c2h = Vec(sin(c2.h), cos(c2.h))
+        val hAngle = lerp(f, c1h, c2h).theta()
+        val h = (hAngle + PI) / (2*PI)
+//        val h = lerp(f, c1.h, c2.h)
+        val s = lerp(f, c1.s, c2.s)
+        val v = lerp(f, c1.v, c2.v)
+        val a = lerp(f, c1.a, c2.a)
+
+
+
+        return HSV(h,s,v,a)
     }
 }

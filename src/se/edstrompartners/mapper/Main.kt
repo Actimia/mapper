@@ -9,8 +9,8 @@ import java.util.*
 import javax.imageio.ImageIO
 
 fun main(args: Array<String>) {
-    val height = 1080
-    val width = 1920
+    val width = 1000
+    val height = 1000
     val image = BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR)
     val g = image.createGraphics()
 //    g.scale(0.9,0.9)
@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
 
 //    val rnd = Random(7812384712398)
     val world = World(width.toDouble(), height.toDouble(), JDKRandomGenerator())
-    val numPoints = 2000
+    val numPoints = 1000
     val distance = 25.0
 //    val points = genPoints(10, size, margin, rnd)
     println("Generating points...")

@@ -54,8 +54,16 @@ fun Graphics.drawCircle(mid: Vec, radius: Double) {
     drawOval((mid.x - radius).toInt(), (mid.y - radius).toInt(), (radius * 2).toInt(), (radius * 2).toInt())
 }
 
-fun clamp(x: Double, min: Double = 0.0, max : Double = 1.0) : Double {
+fun clamp(x: Double, min: Double = 0.0, max: Double = 1.0): Double {
     if (x <= min) return min
     if (max <= x) return max
     return x
+}
+
+fun lerp(f: Double, a: Double, b: Double): Double {
+    return f * a + (1.0 - f) * b
+}
+
+fun lerp(f: Double, a: Vec, b: Vec): Vec {
+    return a * f + b * (1.0 - f)
 }

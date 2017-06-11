@@ -10,8 +10,8 @@ class World(val width: Double, val height: Double, val random : RandomGenerator)
 //    private val dist = NormalDistribution(random, random.nextGaussian())
     private val noise = OpenSimplexNoise(random.nextLong())
 
-    fun noise(p : Vec) : Double = noise(p.x, p.y)
-    fun noise(x: Double, y : Double) : Double = noise.eval(x/width,y/height)
+    fun noise(p : Vec, octave : Int = 1) : Double = noise(p.x * octave, p.y * octave)
+    fun noise(x: Double, y : Double) : Double = noise.eval(x/500,y/500)
 
     fun closestIntersectionWithEdge(line: Line): Vec {
         return bounds.edges.map { it.intersection(line) }
